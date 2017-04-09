@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
 import { createStore, combineReducers } from 'redux';
+//import Todo from './Todo'
 import './index.css';
 
 const todo = (state, action) => {
@@ -51,7 +52,6 @@ const todo = (state, action) => {
     const visibilityFilter = (state = 'SHOW_ALL', action) => {
       switch (action.type) {
         case 'SET_VISIBILITY_FILTER': {
-          console.log(action.filter);
           console.log(store.getState())
           return action.filter;
         }
@@ -93,6 +93,27 @@ const FilterLink = ({
     </a>
   );
 };
+class Todo extends React.Component {
+  render() {
+    const todo = this.props.todoData;
+    return (
+      <li  
+        
+        onClick={() => {
+          store.dispatch({
+            type: 'TOGGLE_TODO',
+            id: todo.id
+          });
+        }}
+        style={{
+          textDecoration: todo.completed ? 'line-through' : 'none'
+        }}
+        > 
+        {todo.text} 
+      </li>
+    )
+  }
+}
 
 class App extends Component {
 
@@ -127,19 +148,7 @@ class App extends Component {
         </button>
         <ul className="todoList">
         {visibleTodos.map( todo => 
-            <li 
-              key={todo.id} 
-              onClick={() => {
-              store.dispatch({
-                type: 'TOGGLE_TODO',
-                id: todo.id
-              });
-              }}
-              style={{
-                textDecoration: todo.completed ? 'line-through' : 'none'
-              }}> 
-              {todo.text} 
-            </li>
+           <Todo todoData={todo}  key={todo.id}/>
         )}
         </ul>
         <p>
