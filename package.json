@@ -11,7 +11,8 @@
     "deep-freeze": "0.0.1",
     "expect": "^1.20.2",
     "react-scripts": "0.9.5",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "uuid": "^3.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
