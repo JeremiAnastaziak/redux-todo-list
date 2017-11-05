@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
 import { createStore, combineReducers } from 'redux';
+import { Provider } from 'react-redux';
 import { todos, visibilityFilter } from './reducers/reducers';
 import App from './components/App/App';
 
@@ -16,7 +17,9 @@ const store = createStore(
 
 const render = () => {
     ReactDOM.render(
-        <App {...store.getState()} store={store} />,
+        <Provider store={store}>
+            <App />
+        </Provider>,
         document.getElementById('root')
     );
 };

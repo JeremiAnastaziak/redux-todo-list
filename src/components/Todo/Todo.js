@@ -1,14 +1,9 @@
 import React from 'react';
 
-const Todo = ({ completed, text, id, store }) => {
+const Todo = ({ completed, text, id, onTodoClick }) => {
     return (
         <li
-            onClick={() => {
-                store.dispatch({
-                    type: 'TOGGLE_TODO',
-                    id: id
-                });
-            }}
+            onClick={() => onTodoClick(id)}
             style={{
                 textDecoration: completed ? 'line-through' : 'none'
             }}

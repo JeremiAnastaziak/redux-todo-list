@@ -1,27 +1,21 @@
-import React from 'react';
+import { connect } from 'react-redux';
+import Link from '../Link/Link';
+import { setVisibilityFilter } from '../../actions/actions';
 
-const FilterLink = ({ filter, currentFilter, store }) => {
-
-    const massage = (filter) => filter.replace('_', ' ').toLowerCase()
-
-    if (filter === currentFilter)
-        return <span style={{ marginRight: '5px' }}>{massage(filter)}</span>;
-
-    return (
-        <a
-            href="#"
-            style={{ marginRight: '8px' }}
-            onClick={e => {
-                e.preventDefault();
-                store.dispatch({
-                    type: 'SET_VISIBILITY_FILTER',
-                    filter
-                });
-            }}
-        >
-            {massage(filter)}
-        </a>
-    );
+const mapStateToProps = (state, ownProps) => {
+    return {
+        active: ownProps.filter === state.visibilityFilter,
+        filter: ownProps.filter
+    };
 };
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+    return {
+        onFilterClick: () =>
+            dispatch(setVisibilityFilter(ownProps.filter))
+    };
+};
+
+const FilterLink = connect(mapStateToProps, mapDispatchToProps)(Link);
 
 export default FilterLink;

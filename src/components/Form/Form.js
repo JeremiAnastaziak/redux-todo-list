@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import uuid from 'uuid/v1';
+import { addTodo } from '../../actions/actions';
 
-const Form = ({ store }) => {
-    let input = null;
+const Form = ({ dispatch }) => {
+    let input;
     return (
         <div>
             <input
@@ -14,11 +16,7 @@ const Form = ({ store }) => {
             />
             <button
                 onClick={() => {
-                    store.dispatch({
-                        type: 'ADD_TODO',
-                        text: input.value,
-                        id: uuid()
-                    });
+                    dispatch(addTodo(input.value, uuid()));
                     input.focus();
                     input.value = '';
                 }}
@@ -29,4 +27,4 @@ const Form = ({ store }) => {
     );
 };
 
-export default Form;
+export default connect(null, null)(Form);
